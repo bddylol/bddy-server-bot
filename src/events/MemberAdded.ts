@@ -47,6 +47,7 @@ export default (client: Client): void => {
             .setColor(Colors.Blurple)
         ],
         components: [
+          //@ts-ignore
           new ActionRowBuilder().addComponents(
             new ButtonBuilder()
               .setStyle(ButtonStyle.Link)
