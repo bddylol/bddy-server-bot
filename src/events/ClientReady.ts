@@ -10,12 +10,12 @@ import {
 } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
-import { sequelize } from "../util/sql";
+import { prisma } from "../util/sql";
 
 export default (client: Client): void => {
   client.on(Events.ClientReady, async () => {
     try {
-      await sequelize.authenticate();
+      await prisma.$connect();
       console.log("[DB] Connection has been established successfully.");
     } catch (e) {
       console.log("[DB] Unable to connect to the database", e);

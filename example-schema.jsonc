@@ -1,0 +1,20 @@
+// User DB Entry Example
+{
+  "discord_id": "803612750718697493",
+  "level": 0,
+  "money": 420,
+  "warnings": [
+    {
+      "warning_id": 0,
+      "warning_reason": "Example Warning", // optional
+      "warning_date": "2021-01-01T00:00:00.000Z",
+      "warning_author": "566766267046821888" // discord id of the author
+    }
+  ],
+  "inventory": [
+    {
+      "item_id": 0,
+      "item_amount": 1
+    }
+  ]
+}

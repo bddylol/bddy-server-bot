@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  discord_id String      @unique
+  level      Int         @default(0)
+  money      Int         @default(2500)
+  // warnings   Warning[]
+  // inventory  Inventory[]
+}
+
+// model Warning {
+//   warning_id     Int     @id @default(autoincrement())
+//   warning_reason String?
+//   warning_date   String
+//   User           User?   @relation(fields: [userId], references: [id])
+//   userId         Int?
+// }
+
+// model Inventory {
+//   item_id     Int   @id
+//   item_amount Int   @default(1)
+//   User        User? @relation(fields: [userId], references: [id])
+//   userId      Int?
+// }
