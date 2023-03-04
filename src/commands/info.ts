@@ -1,7 +1,8 @@
 import {
   CommandInteraction,
   SlashCommandBuilder,
-  EmbedBuilder
+  EmbedBuilder,
+  Colors
 } from "discord.js";
 
 import { execSync } from "child_process";
@@ -37,6 +38,7 @@ export default {
             }
           ])
           .setTimestamp()
+          .setColor(Colors.Blurple)
       ]
     });
   }
