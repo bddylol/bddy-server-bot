@@ -18,7 +18,7 @@ export default {
         new EmbedBuilder()
           .setTitle("Bot Information")
           .setURL("https://github.com/buddy-codes/bddy-server-bot")
-          // .setDescription("Multipurpose bot for bddy's server")
+          .setDescription("Multipurpose bot for bddy's server")
           .addFields([
             {
               name: "Developer",
