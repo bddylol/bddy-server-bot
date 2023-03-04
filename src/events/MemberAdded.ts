@@ -28,5 +28,6 @@ export default (client: Client): void => {
           .setColor(Colors.Blurple)
       ]
     });
+    await member.roles.add("1077345475088355338");
   });
 };
