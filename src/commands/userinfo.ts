@@ -35,12 +35,12 @@ export default {
             },
             {
               name: "Discriminator",
-              value: user.discriminator,
+              value: "#" + user.discriminator,
               inline: true
             },
             {
               name: "ID",
-              value: user.id,
+              value: `\`${user.id}\``,
               inline: true
             },
             {
