@@ -10,9 +10,16 @@ import {
 } from "discord.js";
 import fs from "node:fs";
 import path from "node:path";
+import { sequelize } from "../util/sql";
 
 export default (client: Client): void => {
   client.on(Events.ClientReady, async () => {
+    try {
+      await sequelize.authenticate();
+      console.log("[DB] Connection has been established successfully.");
+    } catch (e) {
+      console.log("[DB] Unable to connect to the database", e);
+    }
     console.log("Client Started as " + client.user?.tag);
 
     // @ts-ignore
@@ -29,7 +36,7 @@ export default (client: Client): void => {
       const filePath = path.join(commandsPath, file);
       const command = require(filePath);
       console.log(
-        "[LOG] Attempting to load command " + command.default?.data?.name
+        "[COMMANDS] Attempting to load command " + command.default?.data?.name
       );
       // console.log(command)
       // commands.push([])
@@ -40,7 +47,7 @@ export default (client: Client): void => {
         commands.push(command.default.data.toJSON());
       } else {
         console.log(
-          `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+          `[COMMANDS] The command at ${filePath} is missing a required "data" or "execute" property.`
         );
       }
     }
