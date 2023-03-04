@@ -20,17 +20,20 @@ export default {
           .addFields([
             {
               name: "Developer",
-              value: "bddy#5683"
+              value: "bddy#5683",
+              inline: true
             },
             {
               name: "Library",
               value: `discord.js ${require("../../package.json").dependencies[
                 "discord.js"
-              ].replace("^", "")}`
+              ].replace("^", "")}`,
+              inline: true
             },
             {
               name: "Latest Commit",
-              value: `${gitCommit}`
+              value: `${gitCommit}`,
+              inline: true
             }
           ])
           .setTimestamp()
