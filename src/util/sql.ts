@@ -10,8 +10,6 @@ const CreateUserInDB = async (user: GuildMember) => {
   return await prisma.user.create({
     data: {
       discord_id: user.id
-      // warnings: [{}],
-      // inventory: [{}]
     }
   });
 };
