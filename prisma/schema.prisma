@@ -13,8 +13,8 @@ datasource db {
 model User {
   id         Int         @id @default(autoincrement())
   discord_id String      @unique
-  level      Int         @default(0)
-  money      Int         @default(2500)
+  level      Float       @default(0)
+  money      Float         @default(2500)
   warnings   Json        @default("[]")
   inventory  Json        @default("[]")
 }
