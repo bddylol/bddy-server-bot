@@ -8,6 +8,7 @@ import {
 } from "discord.js";
 
 import { execSync } from "child_process";
+import { prisma } from "../util/sql";
 
 export default {
   data: new SlashCommandBuilder()
@@ -23,6 +24,15 @@ export default {
     //@ts-ignore
     const member: GuildMember =
       interaction?.options?.getMember("user") || interaction.member;
+    const userMoney = await prisma.user.findFirst({
+      where: { discord_id: member?.user?.id },
+      select: { money: true }
+    });
+
+    const formattedMoney = await userMoney?.money?.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
@@ -68,6 +78,10 @@ export default {
                 member.joinedAt.toDateString() || "how did you get here?"
               }`,
               inline: true
+            },
+            {
+              name: "Money",
+              value: `${formattedMoney}`
             },
             {
               name: "Roles",

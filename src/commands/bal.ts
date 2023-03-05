@@ -36,11 +36,16 @@ export default {
       select: { money: true }
     });
 
+    const formatted = await userMoney?.money?.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
           .setTitle(`${user.username}'s Balance`)
-          .setDescription(`Balance: ${userMoney?.money}`)
+          .setDescription(`Balance: ${formatted}`)
           .setColor(Colors.Green)
       ]
     });
