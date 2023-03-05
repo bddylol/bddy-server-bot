@@ -2,7 +2,9 @@ import {
   CommandInteraction,
   SlashCommandBuilder,
   EmbedBuilder,
-  Colors
+  Colors,
+  User,
+  GuildMember
 } from "discord.js";
 
 import { execSync } from "child_process";
@@ -18,64 +20,58 @@ export default {
         .setRequired(false)
     ),
   async execute(interaction: CommandInteraction) {
-    const user = interaction.options.getUser("user") || interaction.user;
-
+    //@ts-ignore
+    const member: GuildMember =
+      interaction?.options?.getMember("user") || interaction.member;
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
           .setColor(Colors.Blurple)
           .setTitle("User Information")
-          .setThumbnail(user.avatarURL())
-          .setDescription(`Information about ${user.username}`)
+          .setThumbnail(member.user.avatarURL())
+          .setDescription(`Information about ${member.user.username}`)
           .addFields([
             {
               name: "Username",
-              value: user.username,
+              value: member.user.username,
               inline: true
             },
             {
               name: "Discriminator",
-              value: "#" + user.discriminator,
+              value: "#" + member.user.discriminator,
               inline: true
             },
             {
               name: "ID",
-              value: `\`${user.id}\``,
-              inline: true
-            },
-            {
-              name: "Device",
-              // @ts-ignore
-              value: user.presence?.clientStatus?.desktop
-                ? "Desktop"
-                : // @ts-ignore
-                user.presence?.clientStatus?.mobile
-                ? "Mobile"
-                : // @ts-ignore
-                user.presence?.clientStatus?.web
-                ? "Web"
-                : "Unknown",
+              value: `\`${member.user.id}\``,
               inline: true
             },
             {
               name: "Bot",
-              value: user.bot ? "Yes" : "No",
+              value: member.user.bot ? "Yes" : "No",
+              inline: true
+            },
+            {
+              name: "System",
+              value: member.user.system ? "Yes" : "No",
               inline: true
             },
             {
               name: "Created At",
-              value: user.createdAt.toDateString(),
+              value: member.user.createdAt.toDateString(),
               inline: true
             },
             {
               name: "Joined At",
               value: `${
                 // @ts-ignore
-                interaction?.guild?.members.cache
-                  ?.get(user?.id)
-                  .joinedAt.toDateString() || "how did you get here?"
+                member.joinedAt.toDateString() || "how did you get here?"
               }`,
               inline: true
+            },
+            {
+              name: "Roles",
+              value: `${member.roles.cache.map((role) => ` <@&${role.id}>`)}`
             }
           ])
       ]

@@ -21,6 +21,16 @@ export default {
     //@ts-ignore
 
     const user = interaction.options.getUser("user") || interaction.user;
+    if (user.bot)
+      return await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("Error")
+            .setDescription("You cannot view a bots balance")
+            .setColor(Colors.Red)
+        ],
+        ephemeral: true
+      });
     const userMoney = await prisma.user.findFirst({
       where: { discord_id: user?.id },
       select: { money: true }
