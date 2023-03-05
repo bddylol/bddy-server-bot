@@ -12,6 +12,7 @@ import {
 
 export default (client: Client): void => {
   client.on(Events.GuildMemberAdd, async (member: GuildMember) => {
+    if (client?.user?.id == "1081978346163929108") return;
     const WELCOME_CHANNEL_ID = "1081663785225437265";
     const RULES_CHANNEL_ID = "1077343081994657833";
     const ANNOUNCEMENTS_CHANNEL_ID = "1077343359171039343";
