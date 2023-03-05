@@ -93,7 +93,7 @@ export default {
               warning_author: interaction.user.id,
               warning_reason: reason,
               warning_date: new Date(),
-              warning_id: new Date(new Date() - Math.random() * 1e12)
+              warning_id: Math.floor(Math.random() * 1000000)
             }
           ]
         }
