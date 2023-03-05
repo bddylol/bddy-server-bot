@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  main:
+    build: .
+    container_name: bddyBot
+    environment:
+      - DISCORD_TOKEN
+      - CLIENT_ID
+      - DATABASE_URL
+    restart: always
