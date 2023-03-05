@@ -21,8 +21,9 @@ export default {
           .setDescription("Multipurpose bot for bddy's server")
           .addFields([
             {
-              name: "Developer",
-              value: "bddy#5683",
+              name: "Developer(s)",
+              value:
+                "[bddy#5683](https://bddy.lol/), [NeonGamerBot_QK#3388](https://saahild.com), GitHub Copilot",
               inline: true
             },
             {
