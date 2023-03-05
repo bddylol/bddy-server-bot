@@ -1,6 +1,6 @@
 {
   "name": "bddy-server-bot",
-  "description": "",
+  "description": "Discord.js bot to handle bddy's discord server!",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
