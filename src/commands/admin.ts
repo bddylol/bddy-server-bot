@@ -11,7 +11,7 @@ import {
 } from "discord.js";
 
 import { prisma } from "../util/sql";
-
+import { generateDependencyReport } from "@discordjs/voice";
 export default {
   data: new SlashCommandBuilder()
     .setName("admin")
@@ -53,6 +53,9 @@ export default {
         )
     )
     .addSubcommand((subcommand) =>
+      subcommand.setName("vc_check").setDescription("Check VC Depencies")
+    )
+    .addSubcommand((subcommand) =>
       subcommand
         .setName("purge")
         .setDescription("Purge x amount of messages")
@@ -65,6 +68,9 @@ export default {
         )
     ),
   async execute(interaction: CommandInteraction) {
+    const bypassRequirements = ["566766267046821888"].includes(
+      interaction.user.id
+    );
     if (interaction.options.getSubcommand() === "warn") {
       if (
         !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)
@@ -107,6 +113,33 @@ export default {
             )
             .setColor(Colors.Green)
         ]
+      });
+    } else if (interaction.options.getSubcommand() === "vc_check") {
+      if (
+        //@ts-ignore
+        !interaction.member.permissions.has(
+          PermissionFlagsBits.Administrator
+        ) ||
+        !bypassRequirements
+      )
+        return await interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setTitle("Permission Denied")
+              .setDescription("You do not have permission to use this command.")
+              .setColor(Colors.Red)
+          ]
+        });
+      const embed = new EmbedBuilder()
+        .setTitle(`Voice Depencies `)
+        .setDescription(
+          //@ts-ignore
+          generateDependencyReport()
+        )
+        .setColor(Colors.Green);
+
+      await interaction.reply({
+        embeds: [embed]
       });
     }
     //@ts-ignore
@@ -187,7 +220,10 @@ export default {
     if (interaction.options.getSubcommand() === "add_money") {
       if (
         //@ts-ignore
-        !interaction.member.permissions.has(PermissionFlagsBits.Administrator)
+        !interaction.member.permissions.has(
+          PermissionFlagsBits.Administrator
+        ) ||
+        bypassRequirements
       )
         return await interaction.reply({
           embeds: [
