@@ -1,3 +1,4 @@
+//@ts-nocheck
 import {
   BaseInteraction,
   Client,
@@ -10,8 +11,29 @@ import {
 
 export default (client: Client): void => {
   client.on(Events.InteractionCreate, async (interaction) => {
+    //AutoComplete
+    if (interaction.isAutocomplete()) {
+      //@ts-ignore idk error
+      const command = interaction.client.commands.get(interaction.commandName);
+
+      if (!command) {
+        console.error(
+          //@ts-ignore idk error
+          `No command matching ${interaction.commandName} was found.`
+        );
+        return;
+      }
+
+      try {
+        await command.autocomplete(interaction);
+      } catch (error) {
+        console.error(error);
+      }
+    }
     if (!interaction.isChatInputCommand()) return;
-    // @ts-ignore
+
+    //@ts-ignore idk error
+
     const command = interaction.client.commands.get(interaction.commandName);
 
     if (!command) {
