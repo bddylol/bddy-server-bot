@@ -21,7 +21,6 @@ export default (client: Client): void => {
       console.log("[DB] Unable to connect to the database", e);
     }
     console.log("Client Started as " + client.user?.tag);
-
     // @ts-ignore
     client.commands = new Collection();
 

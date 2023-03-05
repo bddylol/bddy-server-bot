@@ -13,8 +13,28 @@
   ],
   "inventory": [
     {
-      "item_id": 0,
-      "item_amount": 1
+      "item_id": "example_item",
+      "item_amount": 9999
+    },
+    {
+      "item_id": "bddy",
+      "item_amount": 9999
+    },
+    {
+      "item_id": "pc",
+      "item_amount": 9999
+    },
+    {
+      "item_id": "mouse",
+      "item_amount": 9999
+    },
+    {
+      "item_id": "dj_pass",
+      "item_amount": 9999
+    },
+    {
+      "item_id": "vip",
+      "item_amount": 9999
     }
   ]
 }
