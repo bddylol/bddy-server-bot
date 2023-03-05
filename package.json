@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon src/main.ts",
-    "start:prod": "ts-node src/main.ts"
+    "start:dev": "npx nodemon src/main.ts",
+    "start:prod": "npx ts-node src/main.ts"
   },
   "repository": {
     "type": "git",
