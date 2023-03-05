@@ -1,4 +1,12 @@
-import { BaseInteraction, Client, Interaction, Events } from "discord.js";
+import {
+  BaseInteraction,
+  Client,
+  Interaction,
+  Events,
+  EmbedBuilder,
+  codeBlock,
+  Colors
+} from "discord.js";
 
 export default (client: Client): void => {
   client.on(Events.InteractionCreate, async (interaction) => {
@@ -18,9 +26,16 @@ export default (client: Client): void => {
     } catch (error) {
       console.error(error);
       await interaction.reply({
-        content:
-          "There was an error while executing this command. Please try later.",
-        ephemeral: true
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("Internal Error")
+            .setDescription(`${codeBlock("js", `${error}`)}`)
+            .setColor(Colors.Red)
+            .setFooter({
+              text: "Please report this to bddy#5683",
+              iconURL: "https://bddy.lol/favicon.png"
+            })
+        ]
       });
     }
   });

@@ -5,9 +5,7 @@ export default (client: Client): void => {
   client.on(Events.InteractionCreate, async (interaction: Interaction) => {
     try {
       // @ts-ignore
-      await CreateUserInDB(interaction.member).then((x) =>
-        console.log("[TEST] " + x)
-      );
+      await CreateUserInDB(interaction.member);
     } catch (e) {
       console.log("[DB-ERR]", e);
     }
@@ -15,7 +13,7 @@ export default (client: Client): void => {
   client.on(Events.MessageCreate, async (msg: Message) => {
     try {
       // @ts-ignore
-      await CreateUserInDB(msg.member).then((x) => console.log("[TEST] " + x));
+      await CreateUserInDB(msg.member);
     } catch (e) {
       console.log("[DB-ERR]", e);
     }
