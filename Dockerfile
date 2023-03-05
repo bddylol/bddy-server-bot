@@ -4,4 +4,7 @@ COPY package-lock.json /app/
 WORKDIR /app
 RUN npm install
 COPY . .
+
+RUN npx prisma generate
+
 CMD ["npm", "run", "start:prod"]
