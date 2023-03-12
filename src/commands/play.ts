@@ -20,7 +20,11 @@ export default {
     .setName("play")
     .setDescription("Play music")
     .addStringOption((o) =>
-      o.setName("song").setDescription("Song Name").setRequired(true)
+      o
+        .setName("song")
+        .setDescription("Song Name")
+        .setRequired(true)
+        .setAutocomplete(true)
     ),
   async autocomplete(interaction: AutocompleteInteraction) {},
   async execute(interaction: CommandInteraction) {
@@ -35,11 +39,13 @@ export default {
     const embed = new EmbedBuilder()
       .setTitle("🎶 Music")
       .setColor(Colors.Green);
-    const connection = await joinVoiceChannel({
-      channelId: interaction.member.voice.channel.id,
-      guildId: interaction.guildId,
-      adapterCreator: interaction.guild.voiceAdapterCreator
-    });
+    const connection =
+      getVoiceConnection(interaction.guildId) ||
+      (await joinVoiceChannel({
+        channelId: interaction.member.voice.channel.id,
+        guildId: interaction.guildId,
+        adapterCreator: interaction.guild.voiceAdapterCreator
+      }));
 
     const YTDLVideo = await ytdl(video.url, { filter: "audioonly" });
 
