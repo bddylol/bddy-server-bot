@@ -5,12 +5,30 @@ import {
   Colors
 } from "discord.js";
 import { prisma } from "../util/sql";
+import { CommandCooldown, msToMinutes } from "discord-command-cooldown";
+import ms from "ms";
+
+const cooldown = new CommandCooldown("work", ms("20m"));
 
 export default {
   data: new SlashCommandBuilder()
     .setName("work")
     .setDescription("Work to earn money!"),
   async execute(interaction: CommandInteraction) {
+    const userCooldowned = await cooldown.getUser(interaction.user.id);
+    if (userCooldowned) {
+      const timeLeft = msToMinutes(userCooldowned.msLeft, false);
+      return await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("Cooldown")
+            .setDescription(
+              `You are on cooldown for ${timeLeft.minutes} minutes and ${timeLeft.seconds} seconds`
+            )
+            .setColor(Colors.Red)
+        ]
+      });
+    }
     // @ts-ignore
     const amount = Math.floor(Math.random() * 20000);
     const messages = [
@@ -50,5 +68,7 @@ export default {
     await interaction.reply({
       embeds: [embed]
     });
+
+    await cooldown.addUser(interaction.user.id);
   }
 };
