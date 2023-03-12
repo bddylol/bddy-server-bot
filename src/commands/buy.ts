@@ -86,6 +86,14 @@ export default {
       });
     }
 
+    if (itemData.item_id == GLOBAL_ITEMS.vip.item_id) {
+      await interaction.member?.roles.add("1082028789707575437");
+    }
+
+    if (itemData.item_id == GLOBAL_ITEMS.dj_pass.item_id) {
+      await interaction.member?.roles.add("1082028852630540450");
+    }
+
     embed.setDescription(
       "You have bought " +
         itemData.item_name +
