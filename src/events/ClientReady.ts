@@ -8,6 +8,7 @@ import {
   Routes,
   Collection
 } from "discord.js";
+import glob from "glob-fs";
 import fs from "node:fs";
 import path from "node:path";
 import { prisma } from "../util/sql";
@@ -31,15 +32,38 @@ export default (client: Client): void => {
 
     const commands = [];
 
+    // NEW COMMAND HANDLER
+    // console.log("reaching glob");
+
+    // const cmds = await globSync(`../commands/**/*.ts`);
+    // console.log(cmds);
+    // for (const file of cmds) {
+    //   console.log(file);
+    //   const command = await require(file);
+    //   console.log(
+    //     "[COMMANDS] Attempting to load command " + command.default?.data?.name
+    //   );
+
+    //   if ("data" in command.default && "execute" in command.default) {
+    //     // @ts-ignore
+    //     client.commands.set(command.default.data.name, command.default);
+    //     commands.push(command.default.data.toJSON());
+    //   } else {
+    //     console.log(
+    //       `[COMMANDS] The command at ${file} is missing a required "data" or "execute" property.`
+    //     );
+    //   }
+    // }
+    // console.log("reached glob");
+
+    // OLD COMMAND HANDLER
+
     for (const file of commandFiles) {
       const filePath = path.join(commandsPath, file);
       const command = require(filePath);
       console.log(
         "[COMMANDS] Attempting to load command " + command.default?.data?.name
       );
-      // console.log(command)
-      // commands.push([])
-      // Set a new item in the Collection with the key as the command name and the value as the exported module
       if ("data" in command.default && "execute" in command.default) {
         // @ts-ignore
         client.commands.set(command.default.data.name, command.default);
@@ -50,6 +74,7 @@ export default (client: Client): void => {
         );
       }
     }
+
     //@ts-ignore
     const rest = new REST({ version: "10" }).setToken(
       process.env.DISCORD_TOKEN

@@ -7,7 +7,8 @@ import {
   BaseInteraction,
   Interaction,
   PermissionFlagsBits,
-  codeBlock
+  codeBlock,
+  ActivityType
 } from "discord.js";
 
 import { prisma } from "../util/sql";
@@ -53,6 +54,17 @@ export default {
         )
     )
     .addSubcommand((subcommand) =>
+      subcommand
+        .setName("bot_status")
+        .setDescription("Change the status of the bot!")
+        .addStringOption((option) =>
+          option
+            .setName("status")
+            .setDescription("New Status (text)")
+            .setRequired(true)
+        )
+    )
+    .addSubcommand((subcommand) =>
       subcommand.setName("vc_check").setDescription("Check VC Depencies")
     )
     .addSubcommand((subcommand) =>
@@ -71,6 +83,39 @@ export default {
     const bypassRequirements = ["566766267046821888"].includes(
       interaction.user.id
     );
+
+    if (interaction.options.getSubcommand() === "bot_status") {
+      const status = interaction.options.getString("status");
+
+      if (
+        interaction.member?.permissions.has(PermissionFlagsBits.Administrator)
+      ) {
+        await interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setTitle("Status Changed")
+              .setDescription(`Status changed to ${status}`)
+              .setColor(Colors.Green)
+          ],
+          ephemeral: true
+        });
+
+        await interaction.client.user.setActivity({
+          name: status,
+          type: ActivityType.Playing
+        });
+      } else {
+        return await interaction.reply({
+          embeds: [
+            new EmbedBuilder()
+              .setTitle("Permission Denied")
+              .setDescription("You do not have permission to use this command.")
+              .setColor(Colors.Red)
+          ],
+          ephemeral: true
+        });
+      }
+    }
     if (interaction.options.getSubcommand() === "warn") {
       if (
         !interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)
