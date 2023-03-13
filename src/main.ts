@@ -4,6 +4,7 @@ import ClientReady from "./events/ClientReady";
 import CreateUserOnAnyAction from "./events/CreateUserOnAnyAction";
 import InteractionCreate from "./events/InteractionCreate";
 import MemberAdded from "./events/MemberAdded";
+import staffLogs from "./events/staff-logs";
 import { CreateUserInDB } from "./util/sql";
 
 const client = new Client({
@@ -19,5 +20,6 @@ ClientReady(client);
 MemberAdded(client);
 InteractionCreate(client);
 CreateUserOnAnyAction(client);
+staffLogs(client);
 
 client.login(process.env.DISCORD_TOKEN);
