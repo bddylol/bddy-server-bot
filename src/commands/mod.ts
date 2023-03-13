@@ -15,8 +15,8 @@ import { prisma } from "../util/sql";
 import { generateDependencyReport } from "@discordjs/voice";
 export default {
   data: new SlashCommandBuilder()
-    .setName("admin")
-    .setDescription("Admin Commands")
+    .setName("moderation")
+    .setDescription("View a list & execute moderation commands")
     .addSubcommand((subcommand) =>
       subcommand
         .setName("add_money")
