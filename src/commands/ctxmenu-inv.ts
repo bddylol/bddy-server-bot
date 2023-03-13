@@ -54,7 +54,8 @@ export default {
     }
 
     await interaction.reply({
-      embeds: [embed]
+      embeds: [embed],
+      ephemeral: true
     });
   }
 };
