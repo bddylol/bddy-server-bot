@@ -14,7 +14,7 @@ import {
   UserContextMenuCommandInteraction
 } from "discord.js";
 
-import { prisma } from "../util/esql";
+import { prisma } from "../util/sql";
 import { GLOBAL_ITEMS } from "../util/GLOBAL_ITEMS";
 
 export default {
